@@ -32,3 +32,8 @@ target/*
 logs
 .log
 .DS_Store
+
+# vs code files
+.classpath
+.project
+.settings/
