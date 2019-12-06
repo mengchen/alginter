@@ -1,10 +1,10 @@
 package skasaher.alg.sort;
 
-import java.util.Arrays;
+import edu.princeton.cs.algs4.StdRandom;
 
-/**
- * Created by mengchen on 2019/11/8.
- */
+import java.util.Arrays;
+import java.util.stream.IntStream;
+
 public abstract class SortTemplate {
     public abstract void sort(Comparable[] a);
 
@@ -19,7 +19,7 @@ public abstract class SortTemplate {
     }
 
     public static void show(Comparable[] a) {
-        Arrays.stream(a).forEach((Comparable t) -> System.out.println(t + " "));
+        Arrays.stream(a).forEach((Comparable t) -> System.out.print(t + " "));
         System.out.println();
     }
 
@@ -30,5 +30,33 @@ public abstract class SortTemplate {
             }
         }
         return true;
+    }
+
+    public static void test(int n, SortTemplate... template) {
+        Integer[] a = IntStream.generate(() -> StdRandom.uniform(1000000))
+                .limit(n)
+                .boxed()
+                .toArray(Integer[]::new);
+
+        System.out.println("array length = " + a.length);
+        Arrays.stream(template)
+                .forEach(t -> {
+                    Integer[] copy = Arrays.copyOf(a, a.length);
+                    long begin = System.currentTimeMillis();
+                    t.sort(copy);
+                    double time = (System.currentTimeMillis() - begin) / 1000.0;
+                    boolean sorted = isSorted(copy);
+                    System.out.println(t.getClass().getSimpleName() + ": isSorted = " + sorted + ", time = " + time + "s");
+                });
+    }
+
+    public static void main(String[] args) {
+        int n = 100000;
+        test(n, new ShellSort(),
+                new MergeSort(),
+                new MergeSortBU(),
+                new QuickSort(),
+                new InsertionSort(),
+                new SelectionSort());
     }
 }
