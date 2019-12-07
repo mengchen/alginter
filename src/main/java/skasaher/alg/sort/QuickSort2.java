@@ -3,9 +3,10 @@ package skasaher.alg.sort;
 import edu.princeton.cs.algs4.StdRandom;
 
 /**
- * 快速排序
+ * 快速排序2
+ * partition更多的交换
  */
-public class QuickSort extends SortTemplate {
+public class QuickSort2 extends SortTemplate {
     @Override
     public void sort(Comparable[] a) {
         StdRandom.shuffle(a);
@@ -13,20 +14,17 @@ public class QuickSort extends SortTemplate {
     }
 
     private void sort(Comparable[] a, int lo, int hi) {
-        if (hi <= lo) return;
+        if (lo >= hi) return;
         int j = partition(a, lo, hi);
         sort(a, lo, j - 1);
         sort(a, j + 1, hi);
     }
 
     private int partition(Comparable[] a, int lo, int hi) {
-        int i = lo, j = hi + 1;
         Comparable v = a[lo];
-        while (true) {
-            while (less(a[++i], v)) if (i >= hi) break;
-            while (less(v, a[--j])) if (j <= lo) break; //v=a[low]作为哨兵可省去这个边界判断
-            if (i >= j) break;
-            exch(a, i, j);
+        int j = lo;
+        for (int i = lo + 1; i <= hi; i++) {
+            if (less(a[i], v)) exch(a, i, ++j);
         }
         exch(a, lo, j);
         return j;

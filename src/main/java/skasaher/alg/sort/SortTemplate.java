@@ -51,11 +51,12 @@ public abstract class SortTemplate {
     }
 
     public static void main(String[] args) {
-        int n = 100000;
+        int n = 200000;
         test(n, new ShellSort(),
                 new MergeSort(),
                 new MergeSortBU(),
                 new QuickSort(),
+                new QuickSort2(),
                 new InsertionSort(),
                 new SelectionSort());
     }
