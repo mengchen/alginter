@@ -26,8 +26,23 @@ public class DPBin {
         return b[n][k];
     }
 
+    /**
+     * 动态规划计算二项式系数C(n,k)
+     * 仅适用索引范围0至k的一维数组
+     */
+    public static long bin3(int n, int k) {
+        long[] b = new long[k + 1];
+        for (int i = 0; i <= n; i++) {
+            for (int j = Math.min(k, i); j >= 0; j--) {
+                if (j == 0 || j == i) b[j] = 1;
+                else b[j] = b[j] + b[j - 1];
+            }
+        }
+        return b[k];
+    }
+
     public static void main(String[] args) {
-        int n = 88, k = 7;
+        int n = 70, k = 7;
         long l1 = System.currentTimeMillis();
         System.out.println(bin(n, k));
         long l2 = System.currentTimeMillis();
@@ -36,5 +51,9 @@ public class DPBin {
         System.out.println(bin2(n, k));
         long l3 = System.currentTimeMillis();
         System.out.println((l3 - l2) / 1000.0 + "s");
+
+        System.out.println(bin3(n, k));
+        long l4 = System.currentTimeMillis();
+        System.out.println((l4 - l3) / 1000.0 + "s");
     }
 }
