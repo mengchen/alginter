@@ -57,6 +57,7 @@ public abstract class SortTemplate {
                 new MergeSortBU(),
                 new QuickSort(),
                 new QuickSort2(),
+                new HeapSort(),
                 new InsertionSort(),
                 new SelectionSort());
     }

@@ -1,4 +1,4 @@
-package skasaher.alg.list;
+package skasaher.alg.ds;
 
 import java.util.Iterator;
 

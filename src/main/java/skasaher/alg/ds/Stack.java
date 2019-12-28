@@ -1,13 +1,12 @@
-package skasaher.alg.list;
+package skasaher.alg.ds;
 
 import java.util.Iterator;
 
 /**
- * 先进先出队列
+ * 下压堆栈（链表）
  */
-public class Queue<Item> implements Iterable<Item> {
+public class Stack<Item> implements Iterable<Item> {
     private Node first;
-    private Node last;
     private int N;
 
     public boolean isEmpty() {
@@ -18,28 +17,25 @@ public class Queue<Item> implements Iterable<Item> {
         return N;
     }
 
-    public void enqueue(Item item) {
-        Node oldlast = last;
-        last = new Node();
-        last.item = item;
-        last.next = null;
-        if (isEmpty()) first = last;
-        else oldlast.next = last;
+    public void push(Item item) {
+        Node oldfirst = first;
+        first = new Node();
+        first.item = item;
+        first.next = oldfirst;
         N++;
     }
 
-    public Item dequeue() {
+    public Item pop() {
         if (isEmpty()) throw new RuntimeException();
         Item item = first.item;
         first = first.next;
-        if (first == null) last = null;
         N--;
         return item;
     }
 
     @Override
     public Iterator<Item> iterator() {
-        return new QueueIterator();
+        return new StackIterator();
     }
 
     private class Node {
@@ -47,7 +43,7 @@ public class Queue<Item> implements Iterable<Item> {
         Node next;
     }
 
-    private class QueueIterator implements Iterator<Item> {
+    private class StackIterator implements Iterator<Item> {
         Node p = first;
 
         @Override
