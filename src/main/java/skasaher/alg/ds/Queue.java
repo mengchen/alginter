@@ -6,8 +6,8 @@ import java.util.Iterator;
  * 先进先出队列
  */
 public class Queue<Item> implements Iterable<Item> {
-    private Node first;
-    private Node last;
+    private Node<Item> first;
+    private Node<Item> last;
     private int N;
 
     public boolean isEmpty() {
@@ -19,8 +19,8 @@ public class Queue<Item> implements Iterable<Item> {
     }
 
     public void enqueue(Item item) {
-        Node oldlast = last;
-        last = new Node();
+        Node<Item> oldlast = last;
+        last = new Node<>();
         last.item = item;
         last.next = null;
         if (isEmpty()) first = last;
@@ -39,16 +39,20 @@ public class Queue<Item> implements Iterable<Item> {
 
     @Override
     public Iterator<Item> iterator() {
-        return new QueueIterator();
+        return new QueueIterator<>(first);
     }
 
-    private class Node {
+    private static class Node<Item> {
         Item item;
-        Node next;
+        Node<Item> next;
     }
 
-    private class QueueIterator implements Iterator<Item> {
-        Node p = first;
+    private static class QueueIterator<Item> implements Iterator<Item> {
+        Node<Item> p;
+
+        public QueueIterator(Node<Item> p) {
+            this.p = p;
+        }
 
         @Override
         public boolean hasNext() {

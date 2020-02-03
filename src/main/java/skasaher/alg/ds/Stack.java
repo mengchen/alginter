@@ -1,12 +1,15 @@
 package skasaher.alg.ds;
 
+import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.StdOut;
+
 import java.util.Iterator;
 
 /**
  * 下压堆栈（链表）
  */
 public class Stack<Item> implements Iterable<Item> {
-    private Node first;
+    private Node<Item> first;
     private int N;
 
     public boolean isEmpty() {
@@ -18,8 +21,8 @@ public class Stack<Item> implements Iterable<Item> {
     }
 
     public void push(Item item) {
-        Node oldfirst = first;
-        first = new Node();
+        Node<Item> oldfirst = first;
+        first = new Node<>();
         first.item = item;
         first.next = oldfirst;
         N++;
@@ -35,16 +38,20 @@ public class Stack<Item> implements Iterable<Item> {
 
     @Override
     public Iterator<Item> iterator() {
-        return new StackIterator();
+        return new StackIterator<>(first);
     }
 
-    private class Node {
+    private static class Node<Item> {
         Item item;
-        Node next;
+        Node<Item> next;
     }
 
-    private class StackIterator implements Iterator<Item> {
-        Node p = first;
+    private static class StackIterator<Item> implements Iterator<Item> {
+        Node<Item> p;
+
+        public StackIterator(Node<Item> p) {
+            this.p = p;
+        }
 
         @Override
         public boolean hasNext() {
@@ -57,5 +64,17 @@ public class Stack<Item> implements Iterable<Item> {
             p = p.next;
             return item;
         }
+    }
+
+    public static void main(String[] args) {
+        Stack<String> stack = new Stack<>();
+        while (!StdIn.isEmpty()) {
+            String item = StdIn.readString();
+            if (!item.equals("-"))
+                stack.push(item);
+            else if (!stack.isEmpty())
+                StdOut.print(stack.pop() + " ");
+        }
+        StdOut.println("(" + stack.size() + " left on stack)");
     }
 }
