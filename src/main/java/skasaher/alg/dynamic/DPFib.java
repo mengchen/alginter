@@ -1,4 +1,4 @@
-package skasaher.alg.dynamicprogramming;
+package skasaher.alg.dynamic;
 
 /**
  * 斐波那契数列

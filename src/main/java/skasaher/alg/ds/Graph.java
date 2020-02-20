@@ -1,6 +1,7 @@
 package skasaher.alg.ds;
 
 import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.StdOut;
 
 /**
  * 图(邻接表作为非稠密图的标准表示)
@@ -50,20 +51,32 @@ public class Graph {
         }
     }
 
+    /**
+     * 顶点数
+     */
     public int V() {
         return V;
     }
 
+    /**
+     * 边数
+     */
     public int E() {
         return E;
     }
 
+    /**
+     * 向图中添加一条边 v-w
+     */
     public void addEdge(int v, int w) {
         adj[v].add(w);      //将w添加到v的链表中
         adj[w].add(v);      //将v添加到w的链表中
         E++;
     }
 
+    /**
+     * 和v相邻的所有顶点
+     */
     public Iterable<Integer> adj(int v) {
         return adj[v];
     }
@@ -77,5 +90,11 @@ public class Graph {
             s.append("\n");
         }
         return s.toString();
+    }
+
+    public static void main(String[] args) {
+        In in = new In(args[0]);
+        Graph G = new Graph(in);
+        StdOut.println(G);
     }
 }
