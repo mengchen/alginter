@@ -1,9 +1,9 @@
-package skasaher.test;
+package skasaher.test.collections;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
-public class Test {
+public class PriorityQueueTest {
     public static void main(String[] args) {
         PriorityQueue<Integer> pq = new PriorityQueue<>(11, new Comparator<Integer>() {
             @Override
