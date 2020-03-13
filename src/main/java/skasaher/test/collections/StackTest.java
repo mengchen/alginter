@@ -7,6 +7,7 @@ public class StackTest {
     public static void main(String[] args) {
         Stack<String> stack = new Stack<>();
         IntStream.range(0, 100).forEach((int value) -> stack.push(String.valueOf(value)));
+        System.out.println(stack.iterator());
         while (!stack.empty()) System.out.println(stack.pop());
     }
 }
