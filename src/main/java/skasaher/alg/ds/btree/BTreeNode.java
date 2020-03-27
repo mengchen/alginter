@@ -3,7 +3,6 @@ package skasaher.alg.ds.btree;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Queue;
-import java.util.function.Consumer;
 
 public class BTreeNode<T> {
     T val;
@@ -70,33 +69,5 @@ public class BTreeNode<T> {
                 queue.offer(t.right);
             }
         }
-    }
-
-    public static void main(String[] args) {
-        Consumer<Integer> visitor = (Integer x) -> System.out.print(x + " ");
-
-        //完全二叉树
-        Integer[] arr = {null, 5, 4, 8, 11, null, 13, 4, 7, 2, null, null, null, null, null, 1};
-        BTreeNode<Integer> root = new BTreeNode<>(arr, true);
-        BTreeTraverse.dfs(root, visitor);
-        System.out.print("\n---------------------------------\n");
-        BTreeTraverse.bfs(root, visitor);
-        System.out.print("\n---------------------------------\n");
-
-        //非完全二叉树
-        arr = new Integer[]{5, 4, 8, 11, null, 13, 4, 7, 2, null, null, null, 1};
-        root = new BTreeNode<>(arr, false);
-        BTreeTraverse.dfs2(root, visitor);
-        System.out.print("\n---------------------------------\n");
-        BTreeTraverse.bfs(root, visitor);
-        System.out.print("\n---------------------------------\n");
-
-        //完全跟非完全表示的不同之处
-        arr = new Integer[]{5, 4, 8, 11, null, 13, 4, 7, 2, null, null, null, null, null, 1};
-        root = new BTreeNode<>(arr, false);
-        BTreeTraverse.dfs2(root, visitor);
-        System.out.print("\n---------------------------------\n");
-        BTreeTraverse.bfs(root, visitor);
-        System.out.print("\n---------------------------------\n");
     }
 }

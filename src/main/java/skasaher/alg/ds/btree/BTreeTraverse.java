@@ -7,6 +7,85 @@ import java.util.function.Consumer;
 
 public class BTreeTraverse {
 
+    /** (先序)递归 */
+    public static <T> void preOrder(BTreeNode<T> root, Consumer<T> visitor) {
+        if (root == null) return;
+        visitor.accept(root.val);
+        preOrder(root.left, visitor);
+        preOrder(root.right, visitor);
+    }
+
+    /** (先序)迭代 */
+    public static <T> void preOrder2(BTreeNode<T> root, Consumer<T> visitor) {
+        Stack<BTreeNode<T>> stack = new Stack<>();
+        while (root != null || !stack.empty()) {
+            while (root != null) {
+                visitor.accept(root.val);
+                stack.push(root);
+                root = root.left;
+            }
+            if (!stack.empty()) {
+                root = stack.pop();
+                root = root.right;
+            }
+        }
+    }
+
+    /** (中序)递归 */
+    public static <T> void midOrder(BTreeNode<T> root, Consumer<T> visitor) {
+        if (root == null) return;
+        midOrder(root.left, visitor);
+        visitor.accept(root.val);
+        midOrder(root.right, visitor);
+    }
+
+    /** (中序)迭代 */
+    public static <T> void midOrder2(BTreeNode<T> root, Consumer<T> visitor) {
+        Stack<BTreeNode<T>> stack = new Stack<>();
+        while (root != null || !stack.empty()) {
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+            if (!stack.empty()) {
+                root = stack.pop();
+                visitor.accept(root.val);
+                root = root.right;
+            }
+        }
+    }
+
+    /** (后序)递归 */
+    public static <T> void postOrder(BTreeNode<T> root, Consumer<T> visitor) {
+        if (root == null) return;
+        postOrder(root.left, visitor);
+        postOrder(root.right, visitor);
+        visitor.accept(root.val);
+    }
+
+    /** (后序)迭代 */
+    public static <T> void postOrder2(BTreeNode<T> root, Consumer<T> visitor) {
+        Stack<BTreeNode<T>> stack = new Stack<>();
+        BTreeNode<T> cur = root, last = null;
+        while (cur != null || !stack.empty()) {
+            while (cur != null) {
+                stack.push(cur);
+                cur = cur.left;
+            }
+            if (!stack.empty()) {
+                cur = stack.peek();
+                if (cur.right == null || cur.right == last) {
+                    visitor.accept(cur.val);
+                    last = cur;
+                    cur = null;
+                    stack.pop();
+                } else {
+                    cur = cur.right;
+                }
+            }
+        }
+    }
+
     /** (先序)深度优先搜索递归版本 */
     public static <T> void dfs(BTreeNode<T> root, Consumer<T> visitor) {
         if (root == null) return;
