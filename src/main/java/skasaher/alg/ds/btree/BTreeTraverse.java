@@ -1,8 +1,6 @@
 package skasaher.alg.ds.btree;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class BTreeTraverse {
@@ -118,5 +116,25 @@ public class BTreeTraverse {
             if (root.left != null) queue.offer(root.left);
             if (root.right != null) queue.offer(root.right);
         }
+    }
+
+    /** (层序)从上到下从左到右返回所有节点值 **/
+    public static <T> List<List<T>> bfs(BTreeNode<T> root) {
+        if (root == null) return Collections.emptyList();
+        List<List<T>> res = new ArrayList<>();
+        Queue<BTreeNode<T>> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            List<T> list = new ArrayList<>();
+            res.add(list);
+            int length = queue.size();
+            while ((length--) > 0) {
+                BTreeNode<T> t = queue.poll();
+                list.add(t.val);
+                if (t.left != null) queue.offer(t.left);
+                if (t.right != null) queue.offer(t.right);
+            }
+        }
+        return res;
     }
 }

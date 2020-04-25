@@ -2,6 +2,7 @@ package skasaher.alg.ds.btree;
 
 import org.junit.Test;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 import static org.junit.Assert.*;
@@ -77,5 +78,14 @@ public class BTreeTraverseTest {
     @Test
     public void bfs() {
         BTreeTraverse.bfs(tree, visitor);
+    }
+
+    @Test
+    public void bfs2() {
+        List<List<Integer>> list = BTreeTraverse.bfs(tree);
+        for (List<Integer> l: list) {
+            for (Integer i: l) System.out.print(i + " ");
+            System.out.println();
+        }
     }
 }
